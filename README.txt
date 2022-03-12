@@ -5,6 +5,9 @@ Projektname: Seriennummergenerator
 - Seriennummern lassen sich in einer .csv Datei abspeichern.
 - Durch Eingabe lässt sich die Validität einer Seriennummer überprüfen
 - Validätsüberpürfung für erstellte Seriennummmern
+- verbrauchte Seriennummern werden in der Datei als sollche vermerkt.
 ###############################Konzeptionierung################################
-OOP Programmierung
-Klassen: Generator, 
+functional:
+
+Funktionen:
+Daten_typen
