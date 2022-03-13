@@ -5,7 +5,7 @@
 
 
 def main() -> None:
-    '''Default main function'''
+    '''Main function'''
     pass
 
 
