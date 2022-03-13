@@ -6,6 +6,7 @@
 
 
 class CLIInterface:
+    '''class CLI.\n Template for buidling an interactive interface.'''
     def __init__(self, page: int, display: str, interaction: list):
         self.page = page
         self._display = display
@@ -13,6 +14,7 @@ class CLIInterface:
 
     @property
     def prompt(self):
+        '''Display getter.'''
         return self._display
 
     @prompt.setter
