@@ -8,15 +8,12 @@
 class SNCLI:
     '''class CLI.\n Template for building an interactive interface.'''
 
-    def __init__(self, page: int):
-        self._page = page
-        self.interaction = None
-        self.prompt = None
-
-    @property
-    def page(self):
-        '''page getter.'''
-        return self._page
+    def __init__(self):
+        """initialize an object of the class SNCLI. Page, interactions and
+        prompt are set automatically"""
+        self._page = None
+        self.interactions = {}
+        self.prompt = ''
 
     @page.setter
     def page(self, value) -> int:
@@ -45,10 +42,18 @@ class SNCLI:
         main_menu_prompt = """Welcome to SN-GEN!
         1 - generate serialnumber
         2 - save serialnumber
-        3 - exit."""
+        3 - validate serialnumber
+        4 - exit."""
         generator_prompt = """SN-GEN:
         1 - to save your generated serialnumbers
         2 - back to main menu
         3 - exit."""
 
         self._prompt = main_menu_prompt if self._page == 1 else generator_prompt
+
+    def run(self) -> None:
+        """starts the programm loop and takes user input."""
+        while True:
+            user_interaction = input(self.prompt)
+
+            if user_interaction == 
