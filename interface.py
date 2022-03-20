@@ -6,6 +6,8 @@ Interface module
 """
 
 
+from sn import letter_generator, digit_generator
+
 class SNCLI:
     '''
     Template for SNGEN CLI
