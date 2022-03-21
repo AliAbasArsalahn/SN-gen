@@ -6,8 +6,8 @@ Interface module
 """
 
 
-from sn import SN, letter_generator, digit_generator
-
+from sn import SN
+import sys
 
 class SNCLI:
     '''
@@ -27,8 +27,13 @@ class SNCLI:
         Assigns the prompt as a string and displays it.
         Prompt displays
         Takes a command as an argument afterwards.
+        creates two objects of the class "SN"
         """
-        MAIN_MENU_PROMPT = """
+
+        letter_generator = SN('letter')
+        digit_generator = SN('digit')
+
+        main_menu_prompt = """
                     Welcome to SN-GEN!
                     1 - generate serialnumber
                     2 - validate serialnumber
@@ -36,20 +41,20 @@ class SNCLI:
                     """
 
         main_menu_commands = {
-            1: self.generate_serialnumber(),
-            2: validate_context_menu(),
-            3: exit()
+            1: self.generate_serialnumber,
+            2: validate_context_menu,
+            3: sys.exit
         }
 
         def validate_context_menu() -> None:
             pass
 
-        command = input(MAIN_MENU_PROMPT)
+        command = input(main_menu_prompt)
         try:
-            main_menu_commands[command]
+            main_menu_commands[command]()
         except IndexError:
             print("command not found! Try again")
-            print(MAIN_MENU_PROMPT)
+            print(main_menu_prompt)
 
     def generate_serialnumber(self) -> None:
         """
