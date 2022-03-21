@@ -12,6 +12,7 @@ from abc import ABC, abstractmethod
 from encodings import utf_8
 import json
 
+
 class SN(ABC):
     """
     Base glass for serialnumbergenerators.
@@ -95,5 +96,50 @@ class letter_generator(SN):
 
         tmp_list = []
         end_list = generate_string(key_count, key_rows, row_length, tmp_list)
+        for key in end_list:
+            self.keys[key] = True
+
+
+class digit_generator(SN):
+    """
+    Subclass of SN. Generates letterbased serialnumbers
+    """
+
+    def generate_serialnumber(self) -> None:
+        """
+        generates a digitbased serialnumber.
+        """
+
+        def generate_digit() -> str:
+            """
+            returns a random digit.
+            """
+            rnd_nmb = randrange((len(digits)) - 1)
+            return digits[rnd_nmb]
+
+        def generate_string(count: int, rows: int, row_length: int, tmp_list: list) -> list:
+            """
+            generates a serialnumber. Returns either a tmp_list or a recursive call.
+            """
+
+            key = ''
+
+            for i in range(rows * row_length):
+                key += generate_digit()
+
+            tmp_list.append(key)
+            if count <= 1:
+                return tmp_list
+            else:
+                return generate_string((count - 1), rows, row_length, tmp_list)
+
+        # user input
+        key_count = int(input("quantity: "))
+        key_rows = int(input("rows: "))
+        key_row_length = int(input("rowlength: "))
+
+        tmp_list = []
+        end_list = generate_string(
+            key_count, key_rows, key_row_lengtt, tmp_list)
         for key in end_list:
             self.keys[key] = True
