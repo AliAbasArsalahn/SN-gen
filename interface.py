@@ -9,6 +9,7 @@ Interface module
 from sn import SN
 import sys
 
+
 class SNCLI:
     '''
     Template for SNGEN CLI
