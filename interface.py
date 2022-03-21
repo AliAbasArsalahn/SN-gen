@@ -6,13 +6,15 @@ Interface module
 """
 
 
-from sn import letter_generator, digit_generator
+from sn import SN, letter_generator, digit_generator
+
 
 class SNCLI:
     '''
     Template for SNGEN CLI
     '''
     # ggf. implicit setzen
+
     def __init__(self):
         """
         constructer of class SNCLI.
@@ -26,36 +28,55 @@ class SNCLI:
         Prompt displays
         Takes a command as an argument afterwards.
         """
-        main_menu_prompt = """
+        MAIN_MENU_PROMPT = """
                     Welcome to SN-GEN!
                     1 - generate serialnumber
-                    2 - save serialnumber
-                    3 - validate serialnumber
-                    4 - exit.
+                    2 - validate serialnumber
+                    3 - exit.
                     """
+
         main_menu_commands = {
-            # function calls
-            #
+            1: self.generate_serialnumber(),
+            2: validate_context_menu(),
+            3: exit()
         }
-        command = input(main_menu_prompt)
+
+        def validate_context_menu() -> None:
+            pass
+
+        command = input(MAIN_MENU_PROMPT)
+        try:
+            main_menu_commands[command]
+        except IndexError:
+            print("command not found! Try again")
+            print(MAIN_MENU_PROMPT)
 
     def generate_serialnumber(self) -> None:
         """
         Displays the Serialnumber context menu and takes an argument.
         """
         generate_serialnumber_prompt = """
-                                    1 - generate Serialnumber
-                                    2 - change settings
-                                    3 - save serialnumber
+                                    1 - generate letterserialnumber
+                                    2 - generate digitserialnumber
+                                    3 - save serialnumbers
+                                    4 - back to main menu
                                     """
         generate_serialnumber_commands = {
-            # commands
+            1: letter_generator.generate_serialnumber(),
+            2: digit_generator.generate_serialnumber(),
+            3: SN.save_serialnumber(digit_generator) and SN.save_serialnumber(letter_generator)
         }
 
         command = input(generate_serialnumber_prompt)
+        try:
+            generate_serialnumber_commands[command]
+        except IndexError:
+            print("command not found! Try again")
+            print(generate_serialnumber_prompt)
 
     def run(self) -> None:
         """
         starts the programm loop and takes user input.
         """
-#        while True:
+        while True:
+            self.main_menu()

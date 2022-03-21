@@ -6,85 +6,23 @@ SN class module.
 """
 
 
-from encodings import utf_8
-from string import ascii_letters, digits
 from random import randrange
+from string import ascii_letters, digits
+from abc import ABC, abstractmethod
+from encodings import utf_8
 import json
 
-class SN():
+class SN(ABC):
     """
-    sn-object can be iniatilized as number or letter generator.
+    Base glass for serialnumbergenerators.
     """
 
-    def __init__(self, sn_type):
+    def __init__(self) -> None:
         self.keys = {}
-        self.sn_type = sn_type
 
+    @abstractmethod
     def generate_serialnumber(self) -> None:
-        """
-        Generates a serialnumber. Calls seperate functions for random letter or digits.
-        Iterates through a list of keys and appends them to the dictionary.
-        Takes key_count, key_rows and key_row_lenght as seperate input arguments.
-        """
-
-        def generate_letter() -> str:
-            """
-            returns a random letter.
-            """
-            rnd_nmb = randrange((len(ascii_letters)) - 1)
-            return ascii_letters[rnd_nmb]
-
-        def generate_digit() -> str:
-            """
-            returns a random digit.
-            """
-            rnd_nmb = randrange((len(digits)) - 1)
-            return digits[rnd_nmb]
-
-        def generate_string(count: int, rows: int, row_length: int, tmp_list) -> list:
-            """
-            Generates a serialnumber. checks the object type and returns either a
-            letter or digit based serialnumber. Yields a tmp_list as generator or makes
-            a recursive function call if more keys need to be generated.
-            """
-
-            key = ''
-
-            for i in range(rows * row_length):
-                if self.sn_type == 'letter':
-                    key += generate_letter()
-                else:
-                    key += generate_digit()
-
-                # if (i >= (row_length - 1)) and (i / (row_length - 1)  == 1):
-                #     key += '-'
-            tmp_list.append(key)
-            if count <= 1:
-                return tmp_list
-            return generate_string((count - 1), rows, row_length, tmp_list)
-
-        # User input
-        key_count = int(input("quantity: "))
-        key_rows = int(input("rows: "))
-        key_row_length = int(input("rowlength: "))
-
-        tmp_list = []
-        end_list = generate_string(key_count, key_rows, key_row_length, tmp_list)
-        for key in end_list:
-            self.keys[key] = True
-
-    def save_serialnumber(self) -> None:
-        """
-        Takes the dictionary "keys" and writes them to a file.
-        """
-        with open('keys.json', 'a', encoding=utf_8) as file:
-            json.dump(self.keys, file)
-
-    def delete_serialnumbers(self) -> None:
-        """
-        Empties the objects dictionary.
-        """
-        self.keys.clear()
+        pass
 
     def validate_serialnumber(self) -> None:
         """
@@ -101,8 +39,61 @@ class SN():
             except IndexError:
                 print("key not found!")
 
-letter_generator = SN('letter')
-digit_generator = SN('digit')
+    def save_serialnumber(self) -> None:
+        """
+        Takes the dictionary "keys" and writes them to a file.
+        """
+        with open('keys.json', 'a', encoding=utf_8) as file:
+            json.dump(self.keys, file)
 
-digit_generator.generate_serialnumber()
-print(digit_generator.keys)
+    def delete_serialnumbers(self) -> None:
+        """
+        Empties the objects dictionary.
+        """
+        self.keys.clear()
+
+
+class letter_generator(SN):
+    """
+    Subclass of SN. Generates letterbased serialnumbers
+    """
+
+    def generate_serialnumber(self) -> None:
+        """
+        Generates a letterbased serialnumber.
+        Calls seperate functions to generate chars.
+        Takes key_count, key_rows as row_lenght as seperate arguments.
+        """
+
+        def generate_letter() -> str:
+            """
+            returns a random letter.
+            """
+            rnd_nmb = randrange(len(ascii_letters) - 1)
+            return ascii_letters[rnd_nmb]
+
+        def generate_string(count: int, rows: int, row_length: int, tmp_list: list) -> list:
+            """
+            Generates a serialnumber. Calls function "generate_letter" to receive letters.
+            """
+
+            key = ''
+
+            for i in range(rows * row_length):
+                key += generate_letter()
+
+            tmp_list.append(key)
+            if count <= 1:
+                return tmp_list
+            else:
+                return generate_string((count - 1), rows, row_length, tmp_list)
+
+        # user input
+        key_count = int(input("quanitity: "))
+        key_rows = int(input("rows: "))
+        row_length = int(input("rowlength: "))
+
+        tmp_list = []
+        end_list = generate_string(key_count, key_rows, row_length, tmp_list)
+        for key in end_list:
+            self.keys[key] = True
