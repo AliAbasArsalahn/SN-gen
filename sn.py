@@ -23,6 +23,7 @@ class SN(ABC):
 
     @abstractmethod
     def generate_serialnumber(self) -> None:
+        """abstract method"""
         pass
 
     def validate_serialnumber(self) -> None:
@@ -54,7 +55,7 @@ class SN(ABC):
         self.keys.clear()
 
 
-class letter_generator(SN):
+class LetterGenerator(SN):
     """
     Subclass of SN. Generates letterbased serialnumbers
     """
@@ -100,7 +101,7 @@ class letter_generator(SN):
             self.keys[key] = True
 
 
-class digit_generator(SN):
+class DigitGenerator(SN):
     """
     Subclass of SN. Generates letterbased serialnumbers
     """
@@ -140,6 +141,6 @@ class digit_generator(SN):
 
         tmp_list = []
         end_list = generate_string(
-            key_count, key_rows, key_row_lengtt, tmp_list)
+            key_count, key_rows, key_row_length, tmp_list)
         for key in end_list:
             self.keys[key] = True
