@@ -44,7 +44,9 @@ class SNCLI:
             if command == 1:
                 generate_serialnumber()
             elif command == 2:
-                validate_s
+                validate_serialnumber()
+            else:
+                exit()
 
         def generate_serialnumber() -> None:
             """
@@ -57,25 +59,8 @@ class SNCLI:
                                         4 - back to main menu
                                         """
 
-            generate_serialnumber_commands = {
-                1: letter_generator.generate_serialnumber,
-                2: digit_generator.generate_serialnumber,
-                3: # Duck
-            }
-
             command = input(generate_serialnumber_prompt)
 
-            try:
-                generate_serialnumber_commands[command]()
-            except IndexError:
-                print("command not found: ")
 
         def validate_serialnumber() -> None:
             user_serialnumber = input("enter you serialnumber: ")
-
-        def run_interface(self) -> None:
-            """
-            starts the programm loop and takes user input.
-            """
-            while True:
-                self.main_menu()
