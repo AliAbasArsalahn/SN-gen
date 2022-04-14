@@ -43,7 +43,7 @@ class SN(ABC):
 
     def save_serialnumber(self) -> None:
         """
-        Takes the dictionary "keys" and writes them to a file.
+        writes existing keys to a json file.
         """
         with open('keys.json', 'a', encoding=utf_8) as file:
             json.dump(self.keys, file)

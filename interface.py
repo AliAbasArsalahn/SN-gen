@@ -5,6 +5,8 @@
 Interface module
 """
 
+# ToDo: Klasse scrappen. CLI mit vorhandenen Python libraries bauen
+
 
 from sn import SN
 import sys
