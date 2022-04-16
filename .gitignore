@@ -3,3 +3,4 @@
 *.DS_Store
 *.txt
 notes.ipynb
+__pycache__

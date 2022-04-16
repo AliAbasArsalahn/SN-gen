@@ -8,13 +8,12 @@ from sn import LetterGenerator, DigitGenerator
 
 
 parser = argparse.ArgumentParser(description="generates a serialnumber")
-parser.add_argument("-gen", "--generate", metavar="gen", type=str,
-                    required=False, help="generate one or more serialnumbers")
-parser.add_argument("-val", "--validate", metavar="val", type=str,
-                    help="validate an existing serialnumber")
+parser.add_argument("ops", "operation", metavar="ops", type=str,
+                    required=False, help="specify which operation to run")
 
 args = vars(parser.parse_args())
 
+generator = LetterGenerator() if args.ops == 
 
 def generate() -> None:
     """it's a duck!"""
@@ -22,3 +21,15 @@ def generate() -> None:
     generator = LetterGenerator() if gen_choice == "letter" else DigitGenerator()
     generator.generate_serialnumber()
     generator.save_serialnumber()
+
+def validate() -> None:
+    """-/-"""
+    pass
+
+
+def main() -> None:
+    pass
+
+
+if __name__ == '__main__':
+    main()
