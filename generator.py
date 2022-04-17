@@ -38,7 +38,7 @@ class SN(ABC):
                     print("key is valid!")
                 else:
                     print("key is not valid")
-            except IndexError:
+            except KeyError:
                 print("key not found!")
 
     def save_serialnumber(self) -> None:
@@ -91,7 +91,7 @@ class LetterGenerator(SN):
                 return generate_string((count - 1), rows, row_length, tmp_list)
 
         # user input
-        key_count = int(input("quanitity: "))
+        key_count = int(input("quantity: "))
         key_rows = int(input("rows: "))
         row_length = int(input("rowlength: "))
 

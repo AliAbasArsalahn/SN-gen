@@ -1,27 +1,29 @@
-# Projekt: Seriennummergenerator | Main
+# Projekt: Seriennummergenerator | Modul: argparse
 # Author: Ali Abas Arsalahn
 # Datum: 12.03.2022
-'''main Skript'''
+"""main module"""
 
-
+import argparse
 from sn import LetterGenerator, DigitGenerator
-from interface import SNCLI
+
+
+def generate_and_save(thing: object) -> None:
+    """it's a duck!"""
+    thing.generate_serialnumber()
+    thing.save_serialnumber()
+
+
+def validate(thing: object) -> None:
+    """-/-"""
+    thing.validate_serialnumber()
+
 
 def main() -> None:
-
-    # CLI or GUI
-    # main_menu prompt / main menu
-    # user input
-    # function call
-    # interface options
-
-
-    letter_gen = LetterGenerator()
-    digit_gen = DigitGenerator()
-    cli_interface = SNCLI()
-
-    while True:
-        user_input = int(input())
+    """main function"""
+    parser = argparse.ArgumentParser(description="generates a serialnumber")
+    parser.add_argument("-gen", "--generate", type=str, choices=["letter", "digit"],
+                        help="specify the type of serialnumber")
+    args = parser.parse_args()
 
 
 if __name__ == '__main__':
