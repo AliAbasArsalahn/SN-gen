@@ -4,3 +4,5 @@
 *.txt
 notes.ipynb
 __pycache__
+keys.json
+keys1.json
