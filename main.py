@@ -26,10 +26,15 @@ def main() -> None:
     parser.add_argument("-qt", "--quantity", type=int,
                         help="set the amount of generated serialnumbers")
     parser.add_argument("-p", "--path", type=str, help="set the path")
-
     args = vars(parser.parse_args())
-    generator = LetterGenerator(
-    ) if args["generator"] == "letter" else DigitGenerator()
+
+    if args["generator"] == "letter":
+        generator = LetterGenerator()
+    elif args["generator"] == "digit":
+        generator = DigitGenerator()
+    else:
+        exit()
+
     generate_and_save(generator)
 
 
