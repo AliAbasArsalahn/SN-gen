@@ -4,7 +4,9 @@
 """main module"""
 
 import argparse
-from generator import LetterGenerator, DigitGenerator
+import os
+from re import S
+from serialnumbergenerator import SerialnumberGenerator
 
 
 def generate_and_save(thing: object) -> None:
@@ -25,13 +27,14 @@ def main() -> None:
                         help="specify the type of serialnumber")
     parser.add_argument("-qt", "--quantity", type=int,
                         help="set the amount of generated serialnumbers")
-    parser.add_argument("-p", "--path", type=str, help="set the path")
+    parser.add_argument("-p", "--path", nargs="?",type=str, help="set the path",
+                        default=os.getcwd())
     args = vars(parser.parse_args())
 
     if args["generator"] == "letter":
-        generator = LetterGenerator()
+        generator = SerialnumberGenerator('letter')
     elif args["generator"] == "digit":
-        generator = DigitGenerator()
+        generator = SerialnumberGenerator('digit')
     else:
         exit()
 
