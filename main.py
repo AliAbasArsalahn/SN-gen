@@ -7,14 +7,10 @@ import argparse
 from generator import LetterGenerator, DigitGenerator
 
 
-# def generate_and_save(thing: object) -> None:
-#     """it's a duck!"""
-#     thing.generate_serialnumber()
-#     thing.save_serialnumber()
-
-
-generate = lambda thing: thing.generate_serialnumber()
-save = lambda thing: thing.save_serialnumber()
+def generate_and_save(thing: object) -> None:
+    """calls generate_serialnumber and save_serialnumber functions from any given object"""
+    thing.generate_serialnumber()
+    thing.save_serialnumber()
 
 
 def validate(thing: object) -> None:
@@ -26,7 +22,7 @@ def main() -> None:
     """main function"""
     parser = argparse.ArgumentParser(description="generates a serialnumber")
     parser.add_argument("-gen", "--generator", type=str, choices=["letter", "digit"],
-                        metavar="gen", help="specify the type of serialnumber")
+                        help="specify the type of serialnumber")
     parser.add_argument("-qt", "--quantity", type=int,
                         help="set the amount of generated serialnumbers")
     parser.add_argument("-p", "--path", type=str, help="set the path")
@@ -34,8 +30,7 @@ def main() -> None:
     args = vars(parser.parse_args())
     generator = LetterGenerator(
     ) if args["generator"] == "letter" else DigitGenerator()
-    generate(generator)
-    save(generator)
+    generate_and_save(generator)
 
 
 if __name__ == '__main__':

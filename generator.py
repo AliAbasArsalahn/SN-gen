@@ -1,9 +1,7 @@
-# Projekt: Seriennummergenerator | Modul: sn
+# Projekt: Seriennummergenerator | Modul: generator
 # Author: Ali Abas Arsalahn
 # Datum: 12.03.2022
-"""
-SN class module.
-"""
+"""SN class module."""
 
 
 from random import randrange
@@ -14,9 +12,7 @@ import json
 
 
 class SN(ABC):
-    """
-    Base glass for serialnumbergenerators.
-    """
+    """Base glass for serialnumbergenerators."""
 
     def __init__(self) -> None:
         self.keys = {}
@@ -27,9 +23,7 @@ class SN(ABC):
         pass
 
     def validate_serialnumber(self) -> None:
-        """
-        Takes a SN as an argument and checks if it is valid.
-        """
+        """Takes a SN as an argument and checks if it is valid."""
         validate_serialnumber = input("serialnumber to validate: ")
         with open('keys.json', 'r', encoding=utf_8) as file:
             data = json.load(file)
@@ -42,23 +36,17 @@ class SN(ABC):
                 print("key not found!")
 
     def save_serialnumber(self) -> None:
-        """
-        writes existing keys to a json file.
-        """
-        with open('keys.json', 'a', encoding=utf_8) as file:
-            json.dump(self.keys, file)
+        """writes existing keys to a json file."""
+        with open('keys.json', 'a', encoding="utf-8") as file:
+            json.dump(self.keys, file, indent=4)
 
     def delete_serialnumbers(self) -> None:
-        """
-        Empties the objects dictionary.
-        """
+        """Empties the objects dictionary."""
         self.keys.clear()
 
 
 class LetterGenerator(SN):
-    """
-    Subclass of SN. Generates letterbased serialnumbers
-    """
+    """Subclass of SN. Generates letterbased serialnumbers"""
 
     def generate_serialnumber(self) -> None:
         """
@@ -68,15 +56,14 @@ class LetterGenerator(SN):
         """
 
         def generate_letter() -> str:
-            """
-            returns a random letter.
-            """
+            """returns a random letter."""
             rnd_nmb = randrange(len(ascii_letters) - 1)
             return ascii_letters[rnd_nmb]
 
         def generate_string(count: int, rows: int, row_length: int, tmp_list: list) -> list:
             """
-            Generates a serialnumber. Calls function "generate_letter" to receive letters.
+            Generates a serialnumber.
+            Calls function "generate_letter" to receive letters.
             """
 
             key = ''
@@ -102,25 +89,20 @@ class LetterGenerator(SN):
 
 
 class DigitGenerator(SN):
-    """
-    Subclass of SN. Generates letterbased serialnumbers
-    """
+    """Subclass of SN. Generates letterbased serialnumbers"""
 
     def generate_serialnumber(self) -> None:
-        """
-        generates a digitbased serialnumber.
-        """
+        """generates a digitbased serialnumber."""
 
         def generate_digit() -> str:
-            """
-            returns a random digit.
-            """
+            """returns a random digit."""
             rnd_nmb = randrange((len(digits)) - 1)
             return digits[rnd_nmb]
 
         def generate_string(count: int, rows: int, row_length: int, tmp_list: list) -> list:
             """
-            generates a serialnumber. Returns either a tmp_list or a recursive call.
+            generates a serialnumber.
+            Returns either a tmp_list or a recursive call.
             """
 
             key = ''
