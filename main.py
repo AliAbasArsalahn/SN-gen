@@ -28,5 +28,6 @@ def main() -> None:
     if args["validate"]:
         sn_generator.validate_serialnumber(args["validate"])
 
+
 if __name__ == '__main__':
     main()

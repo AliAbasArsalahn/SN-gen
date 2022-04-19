@@ -6,7 +6,6 @@
 from io import UnsupportedOperation
 from random import randrange
 from string import ascii_letters, digits
-from encodings import utf_8
 import json
 
 
@@ -71,10 +70,13 @@ class SerialnumberGenerator():
 
     def save_serialnumber(self) -> None:
         """writes existing keys to a json file."""
-        with open('serialnumbers.json', 'a', encoding="utf-8") as file:
-            try:
+        try:
+            with open("serialnumbers.json", "r", encoding="utf-8") as file:
                 data = json.load(file)
-                new_data = dict(data["keys"].items() + self.sn_map["keys"].items())
-                json.dump(new_data, file, indent=4)
-            except UnsupportedOperation:
+            for serialnumber in self.sn_map["keys"]:
+                data["keys"][serialnumber] = True
+            with open("serialnumbers.json", "r+", encoding="utf-8") as file:
+                json.dump(data, file, indent=4)
+        except (UnsupportedOperation, FileNotFoundError, json.decoder.JSONDecodeError):
+            with open("serialnumbers.json", "w", encoding="utf-8") as file:
                 json.dump(self.sn_map, file, indent=4)
