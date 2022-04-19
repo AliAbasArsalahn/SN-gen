@@ -13,12 +13,11 @@ import json
 class SerialnumberGenerator():
     """Base glass for serialnumbergenerators."""
 
-    def __init__(self, sn_type: str) -> None:
-        self.keys = {}
+    def __init__(self) -> None:
         self.path_to_save = ''
-        self.type = sn_type
+        self.sn_map = {"keys": {}}
 
-    def generate_serialnumber(self) -> None:
+    def generate_serialnumber(self, sn_type: str) -> None:
         """Generates a Serialnumber based on type.
         Takes quantity, rows and row_length as Argmuments"""
 
@@ -54,17 +53,16 @@ class SerialnumberGenerator():
 
         tmp_list = []
         end_list = generate_string(
-            self.type, key_count, key_rows, row_length, tmp_list)
+            sn_type, key_count, key_rows, row_length, tmp_list)
         for key in end_list:
-            self.keys[key] = True
+            self.sn_map["keys"][key] = True
 
-    def validate_serialnumber(self) -> None:
+    def validate_serialnumber(self, validate_serialnumber: str) -> None:
         """Takes a SN as an argument and checks if it is valid."""
-        validate_serialnumber = input("serialnumber to validate: ")
-        with open('keys.json', 'r', encoding=utf_8) as file:
+        with open('serialnumbers.json', 'r', encoding="utf_8") as file:
             data = json.load(file)
             try:
-                if data[validate_serialnumber]:
+                if data["keys"][validate_serialnumber]:
                     print("key is valid!")
                 else:
                     print("key is not valid")
@@ -73,10 +71,10 @@ class SerialnumberGenerator():
 
     def save_serialnumber(self) -> None:
         """writes existing keys to a json file."""
-        with open('keys.json', 'a', encoding="utf-8") as file:
+        with open('serialnumbers.json', 'a', encoding="utf-8") as file:
             try:
                 data = json.load(file)
-                new_data = dict(data.items() + self.keys.items())
+                new_data = dict(data["keys"].items() + self.sn_map["keys"].items())
                 json.dump(new_data, file, indent=4)
             except UnsupportedOperation:
-                json.dump(self.keys, file, indent=4)
+                json.dump(self.sn_map, file, indent=4)

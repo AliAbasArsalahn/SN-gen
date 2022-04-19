@@ -5,41 +5,28 @@
 
 import argparse
 import os
-from re import S
 from serialnumbergenerator import SerialnumberGenerator
-
-
-def generate_and_save(thing: object) -> None:
-    """calls generate_serialnumber and save_serialnumber functions from any given object"""
-    thing.generate_serialnumber()
-    thing.save_serialnumber()
-
-
-def validate(thing: object) -> None:
-    """-/-"""
-    thing.validate_serialnumber()
 
 
 def main() -> None:
     """main function"""
     parser = argparse.ArgumentParser(description="generates a serialnumber")
-    parser.add_argument("-gen", "--generator", type=str, choices=["letter", "digit"],
+    parser.add_argument("-g", "--generator", type=str, choices=["letter", "digit"],
                         help="specify the type of serialnumber")
     parser.add_argument("-qt", "--quantity", type=int,
                         help="set the amount of generated serialnumbers")
-    parser.add_argument("-p", "--path", nargs="?",type=str, help="set the path",
+    parser.add_argument("-p", "--path", nargs="?", type=str, help="set the path",
                         default=os.getcwd())
+    parser.add_argument("-v", "--validate", help="validate a given serialnumber",
+                        type=str)
     args = vars(parser.parse_args())
 
-    if args["generator"] == "letter":
-        generator = SerialnumberGenerator('letter')
-    elif args["generator"] == "digit":
-        generator = SerialnumberGenerator('digit')
-    else:
-        exit()
-
-    generate_and_save(generator)
-
+    sn_generator = SerialnumberGenerator()
+    if args["generator"]:
+        sn_generator.generate_serialnumber(args["generator"])
+        sn_generator.save_serialnumber()
+    if args["validate"]:
+        sn_generator.validate_serialnumber(args["validate"])
 
 if __name__ == '__main__':
     main()
