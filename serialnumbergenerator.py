@@ -1,8 +1,9 @@
-# Projekt: Seriennummergenerator \ Modul: Serialnumbergenerator
+# Projekt: Seriennummergenerator \ Modul: serialnumbergenerator
 # Author: Ali Abas Arsalahn
 # Datum: 12.03.2022
 """Serialnumbergenerator module"""
 
+from fileinput import filename
 from io import UnsupportedOperation
 from random import randrange
 from string import ascii_letters, digits
@@ -65,12 +66,12 @@ class SerialnumberGenerator():
     def save_serialnumber(self, path: str) -> None:
         """writes existing keys to a json file."""
         try:
-            with open((path + "serialnumbers.json"), "r", encoding="utf-8") as file:
+            with open(path + f"/{filename}", "r", encoding="utf-8") as file:
                 data = json.load(file)
             for serialnumber in self.sn_map["keys"]:
                 data["keys"][serialnumber] = True
-            with open((path + "serialnumbers.json"), "r+", encoding="utf-8") as file:
+            with open((path + "/serialnumbers.json"), "r+", encoding="utf-8") as file:
                 json.dump(data, file, indent=4)
         except (UnsupportedOperation, FileNotFoundError, json.decoder.JSONDecodeError):
-            with open((path + "serialnumbers.json"), "w", encoding="utf-8") as file:
+            with open((path + "/serialnumbers.json"), "w", encoding="utf-8") as file:
                 json.dump(self.sn_map, file, indent=4)
