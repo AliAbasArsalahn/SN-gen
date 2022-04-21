@@ -13,10 +13,9 @@ class SerialnumberGenerator():
     """Base glass for serialnumbergenerators."""
 
     def __init__(self) -> None:
-        self.path_to_save = ''
         self.sn_map = {"keys": {}}
 
-    def generate_serialnumber(self, sn_type: str) -> None:
+    def generate_serialnumber(self, sn_type: str, count: int, key_rows: int, row_length: int) -> None:
         """Generates a Serialnumber based on type.
         Takes quantity, rows and row_length as Argmuments"""
 
@@ -33,7 +32,7 @@ class SerialnumberGenerator():
         def generate_string(sn_type: str, count: int, rows: int, row_length: int, tmp_list: list) -> list:
             """
             Generates Serialnumbers based on type.
-            Returns created serialnumbers as list.
+            Returns created serialnumbers as item in a list.
             """
             key = ''
             for i in range(rows * row_length):
@@ -45,19 +44,14 @@ class SerialnumberGenerator():
             else:
                 return generate_string(sn_type, (count - 1), rows, row_length, tmp_list)
 
-        # user input
-        key_count = int(input("quantity: "))
-        key_rows = int(input("rows: "))
-        row_length = int(input("rowlength: "))
-
         tmp_list = []
         end_list = generate_string(
-            sn_type, key_count, key_rows, row_length, tmp_list)
+            sn_type, count, key_rows, row_length, tmp_list)
         for key in end_list:
             self.sn_map["keys"][key] = True
 
     def validate_serialnumber(self, validate_serialnumber: str) -> None:
-        """Takes a SN as an argument and checks if it is valid."""
+        """Takes a string as an argument and checks if it is valid a valid serialnumber."""
         with open('serialnumbers.json', 'r', encoding="utf_8") as file:
             data = json.load(file)
             try:
@@ -68,15 +62,15 @@ class SerialnumberGenerator():
             except KeyError:
                 print("key not found!")
 
-    def save_serialnumber(self) -> None:
+    def save_serialnumber(self, path: str) -> None:
         """writes existing keys to a json file."""
         try:
-            with open("serialnumbers.json", "r", encoding="utf-8") as file:
+            with open((path + "serialnumbers.json"), "r", encoding="utf-8") as file:
                 data = json.load(file)
             for serialnumber in self.sn_map["keys"]:
                 data["keys"][serialnumber] = True
-            with open("serialnumbers.json", "r+", encoding="utf-8") as file:
+            with open((path + "serialnumbers.json"), "r+", encoding="utf-8") as file:
                 json.dump(data, file, indent=4)
         except (UnsupportedOperation, FileNotFoundError, json.decoder.JSONDecodeError):
-            with open("serialnumbers.json", "w", encoding="utf-8") as file:
+            with open((path + "serialnumbers.json"), "w", encoding="utf-8") as file:
                 json.dump(self.sn_map, file, indent=4)
