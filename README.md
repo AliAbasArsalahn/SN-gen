@@ -17,4 +17,7 @@ Benötigt wird hierbei ein Python Interpreter. Zum Ausführen Python in die Komm
 -kr oder --keyrows um die Anzahl der erstellen Blöcke zu manipulieren. (Standardmäßg auf 4)\
 -rl oder --rowlength um
 -p oder --path um den Speicherort für erstelle Seriennummern anzugeben. Standardmäßig ist dies das Verzeichnis aus dem das Python Skript ausgeführt wird.
-Kann ebenfalls verwendet werden um zu bestimmen, aus welcher Datei Seriennumern zur validierung gelesen werden.
+-fn oder --filename um den Namen der Datei zu bearbeiten die entweder mit Seriennummern beschrieben wird oder aus der Seriennummern gelesen werden
+
+### Bemerkung
+eine GUI wird (evtl.) noch nachgereicht. Ich habe mich bei der Erstellung des Projekts sehr darauf fixxiert ein Commandlinetool zu basteln (personal preference)
