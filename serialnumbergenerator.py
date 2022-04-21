@@ -3,7 +3,6 @@
 # Datum: 12.03.2022
 """Serialnumbergenerator module"""
 
-from fileinput import filename
 from io import UnsupportedOperation
 from random import randrange
 from string import ascii_letters, digits
@@ -51,7 +50,7 @@ class SerialnumberGenerator():
         for key in end_list:
             self.sn_map["keys"][key] = True
 
-    def validate_serialnumber(self, validate_serialnumber: str) -> None:
+    def validate_serialnumber(self, validate_serialnumber: str, directory: str, load_filename: str) -> None:
         """Takes a string as an argument and checks if it is valid a valid serialnumber."""
         with open('serialnumbers.json', 'r', encoding="utf_8") as file:
             data = json.load(file)
@@ -63,15 +62,15 @@ class SerialnumberGenerator():
             except KeyError:
                 print("key not found!")
 
-    def save_serialnumber(self, path: str) -> None:
+    def save_serialnumber(self, save_directory: str, save_filename: str) -> None:
         """writes existing keys to a json file."""
         try:
-            with open(path + f"/{filename}", "r", encoding="utf-8") as file:
+            with open(save_directory + f"/{save_filename}", "r", encoding="utf-8") as file:
                 data = json.load(file)
             for serialnumber in self.sn_map["keys"]:
                 data["keys"][serialnumber] = True
-            with open((path + "/serialnumbers.json"), "r+", encoding="utf-8") as file:
+            with open((save_directory + f"/{save_filename}"), "r+", encoding="utf-8") as file:
                 json.dump(data, file, indent=4)
         except (UnsupportedOperation, FileNotFoundError, json.decoder.JSONDecodeError):
-            with open((path + "/serialnumbers.json"), "w", encoding="utf-8") as file:
+            with open((save_directory + f"/{save_filename}"), "w", encoding="utf-8") as file:
                 json.dump(self.sn_map, file, indent=4)
