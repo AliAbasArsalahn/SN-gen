@@ -10,7 +10,7 @@ import json
 
 
 class SerialnumberGenerator():
-    """Base glass for serialnumbergenerators."""
+    """Methods: generate_serialnumber, save_serialnumber, validate_serialnumber."""
 
     def __init__(self) -> None:
         self.sn_map = {"keys": {}}
@@ -52,7 +52,7 @@ class SerialnumberGenerator():
 
     def validate_serialnumber(self, validate_serialnumber: str, directory: str, load_filename: str) -> None:
         """Takes a string as an argument and checks if it is valid a valid serialnumber."""
-        with open('serialnumbers.json', 'r', encoding="utf_8") as file:
+        with open(directory + f"/{load_filename}", 'r', encoding="utf_8") as file:
             data = json.load(file)
             try:
                 if data["keys"][validate_serialnumber]:
