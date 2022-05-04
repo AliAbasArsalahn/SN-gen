@@ -1,11 +1,11 @@
 # Seriennummergenerator
 Author: Ali Abas Arsalahn\
 Das folgende Programm erstellt Seriennummern und sichert diese in eine .json Datei.\
-Ebenfalls ermöglicht wird die validierung von erstellten Seriennummern.
+Ebenfalls ermöglicht wird die Validierung von erstellten Seriennummern.
 
 ### Anleitung
 Das Programm lässt sich über eine Kommandozeile (PowerShell o. bsh/zsh) ausführen. 
-Benötigt wird hierbei ein Python Interpreter. Zum Ausführen Python in die Kommandozeile (Python3 für macOS) eingeben und die unten spezifizierten Paramter eingeben
+Benötigt wird hierbei ein Python Interpreter. Zum Ausführen Python in die Kommandozeile (Python3 für macOS) eingeben und die unten spezifizierten Parameter eingeben
 
 ### Parameter
 -h oder --help um alle verfügbaren befehle anzeigen zu lassen.\
@@ -18,6 +18,3 @@ Benötigt wird hierbei ein Python Interpreter. Zum Ausführen Python in die Komm
 -rl oder --rowlength um
 -p oder --path um den Speicherort für erstelle Seriennummern anzugeben. Standardmäßig ist dies das Verzeichnis aus dem das Python Skript ausgeführt wird.
 -fn oder --filename um den Namen der Datei zu bearbeiten die entweder mit Seriennummern beschrieben wird oder aus der Seriennummern gelesen werden
-
-### Bemerkung
-eine GUI wird (evtl.) noch nachgereicht. Ich habe mich bei der Erstellung des Projekts sehr darauf fixxiert ein Commandlinetool zu basteln (personal preference)
