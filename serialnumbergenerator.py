@@ -51,7 +51,7 @@ class SerialnumberGenerator():
             self.sn_map["keys"][key] = True
 
     def validate_serialnumber(self, validate_serialnumber: str, directory: str, load_filename: str) -> None:
-        """Takes a string as an argument and checks if it is valid a valid serialnumber."""
+        """Takes a string as an argument and checks if it is a valid serialnumber."""
         with open(directory + f"/{load_filename}", 'r', encoding="utf_8") as file:
             data = json.load(file)
             try:
